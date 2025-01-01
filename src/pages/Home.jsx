@@ -44,7 +44,7 @@ function Home() {
                         <CardHeader>
                           <CardTitle>{doc.name}</CardTitle>
                           <CardDescription>
-                            {truncateText(doc.description, 10)}
+                            {truncateText(doc.description, 10)}.
                           </CardDescription>
                         </CardHeader>
                         <CardContent>

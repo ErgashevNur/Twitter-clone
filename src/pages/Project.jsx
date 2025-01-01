@@ -5,8 +5,6 @@ function Project() {
   const location = useLocation();
   const proj = location.state;
 
-  console.log("project", proj);
-
   return (
     <div className="grid grid-cols-2 gap-5">
       <div className="card bg-gray-200  text-slate-950 w-[400px] h-[350px]  ">
@@ -42,7 +40,8 @@ function Project() {
           </div>
         </div>
       </div>
-      {/* <div className="max-h-[400px] overflow-x-auto">
+
+      <div className="max-h-[400px] overflow-x-auto">
         <h2 className="text-2xl ">Chat for comments:</h2>
         {proj.comments.length == 0 ? (
           <h4 className="text-center my-10 italic opacity-50">
@@ -97,7 +96,7 @@ function Project() {
             </button>
           </form>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

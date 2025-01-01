@@ -22,12 +22,13 @@ export function useAuthWithGoogle() {
           photoURL: user.photoURL,
           id: user.uid,
           online: true,
-          Toast,
-        });
+        })
+          .then(() => {})
+          .catch((error) => console.log(error));
       }
     } catch {
       // const errorCode = error.code;
-      // const errorMessage = error.message;
+      const errorMessage = error.message;
       toast.error(errorMessage);
     }
   };
