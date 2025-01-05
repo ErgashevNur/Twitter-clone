@@ -31,7 +31,9 @@ function Profile() {
           ref={fileInputRef}
           className="opacity-0 cursor-pointer absolute w-full h-[200px] bg-cover bg-center"
           onChange={handleImageChange}
-        ></Input>
+        >
+          Drop your background image
+        </Input>
 
         <div className="absolute top-[220px] left-28 transform -translate-x-1/2 w-[150px] h-[150px] bg-blue-400 rounded-full overflow-hidden border-4 border-white shadow-md">
           <img
