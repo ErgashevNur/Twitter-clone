@@ -5,7 +5,6 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { useSelector } from "react-redux";
 import { FaRegFaceSmileBeam } from "react-icons/fa6";
-import { toast } from "@radix-ui/react-toast";
 
 export function useLogout() {
   const { user } = useSelector((store) => store.user);
