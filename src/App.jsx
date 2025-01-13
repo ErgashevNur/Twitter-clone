@@ -70,14 +70,7 @@ function App() {
       dispatch(authReadyAct());
     });
   });
-  return (
-    <>
-      {authReady && <RouterProvider router={routes} />}
-      <div>
-        <OnlineUsers />
-      </div>
-    </>
-  );
+  return <>{authReady && <RouterProvider router={routes} />}</>;
 }
 
 export default App;
