@@ -3,6 +3,7 @@ import { db } from "../firebase/config";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Toaster } from "@/components/ui/sonner";
 
 function useFireStore(collectionName) {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function useFireStore(collectionName) {
     setIsPanding(true);
     try {
       await addDoc(collection(db, collectionName), data);
-      toast.success("Project added successfully!");
+      <Toaster />;
     } catch (error) {
       toast.error(error.code);
       setError(error.code);
@@ -26,7 +27,7 @@ function useFireStore(collectionName) {
     setIsPanding(true);
     try {
       await deleteDoc(doc(db, collectionName, id));
-      toast.success("Project deleted successfully!");
+      ("Project deleted successfully!");
       navigate("/");
     } catch {
       toast.error(error.code);

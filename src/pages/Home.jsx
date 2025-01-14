@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
   const { documents: projects } = useCollection("projects");
@@ -19,36 +20,47 @@ function Home() {
     return text;
   }
 
+  const navigate = useNavigate();
+
   return (
-    <div className="w-[100%] pb-4 bg-cyan-900 dark:bg-gray-700">
-      <ul className="flex flex-wrap gap-8 justify-center w-full max-w-[1200px]">
+    <div className="w-[100%] px-6 p-4 bg-cyan-900 dark:bg-gray-700 rounded-lg">
+      <ul className="flex flex-wrap gap-8 justify-strat w-full max-w-[1200px]">
         {projects &&
           projects.map((doc) => {
             return (
-              <li key={doc.id}>
-                <div className="flex gap-4">
-                  <div className="w-[250px] bg-cyan-900 dark:bg-gray-700 flex items-start pt-5 justify-center">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>{doc.name}</CardTitle>
-                        <CardDescription>
-                          {truncateText(doc.description, 20)}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p>
-                          {doc.dueTo
-                            ? new Date(doc.dueTo).toLocaleDateString()
-                            : "No due date"}
-                        </p>
-                      </CardContent>
+              <li
+                key={doc.id}
+                className="w-[250px] h-full rounded-t-lg rounded-lg overflow-hidden"
+              >
+                <button
+                  onClick={() => {
+                    navigate(`/project/${doc.id}`, { state: doc });
+                  }}
+                >
+                  {/* <Link to="project/:id"> */}
+                  <div className="flex gap-4">
+                    <div className="w-[250px] bg-cyan-900 dark:bg-gray-700 flex items-start justify-center">
+                      <Card>
+                        <CardHeader>
+                          <CardTitle>{doc.name}</CardTitle>
+                          <CardDescription>
+                            {truncateText(doc.description, 10)}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <p>
+                            {new Date(doc.dueTo.toDate()).toLocaleDateString()}
+                          </p>
+                        </CardContent>
 
-                      <CardFooter>
-                        <p>Shunaqa gaplar</p>
-                      </CardFooter>
-                    </Card>
+                        <CardFooter>
+                          <p>Shunaqa gaplar</p>
+                        </CardFooter>
+                      </Card>
+                    </div>
                   </div>
-                </div>
+                </button>
+                {/* </Link> */}
               </li>
             );
           })}

@@ -47,7 +47,7 @@ function Register() {
     <div className="min-h-screen grid place-items-center w-full bg-[url('https://images5.alphacoders.com/135/thumb-1920-1350706.jpeg')] bg-cover bg-center">
       <Form
         method="post"
-        className="mx-auto w-full bg-white/10 backdrop-blur-lg rounded-xl p-20 shadow-lg max-w-xl"
+        className="mx-auto w-full bg-white/10 backdrop-blur-lg rounded-xl p-20 py-10 shadow-lg max-w-xl"
       >
         <h2 className="text-4xl text-center mb-5 font-bold">Register</h2>
 

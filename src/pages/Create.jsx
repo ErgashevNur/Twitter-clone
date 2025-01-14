@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaArrowDown } from "react-icons/fa";
+import { validate } from "uuid";
 
 export async function action({ request }) {
   const form = await request.formData();
@@ -27,13 +28,14 @@ export async function action({ request }) {
 }
 
 function Create() {
+  const [desc, setDesc] = useState("");
+  const [users, setUsers] = useState([]);
+  const [assignedUsers, setAssignedUser] = useState([]);
+  const [projectType, setProjectType] = useState([]);
   const navigate = useNavigate();
   const { addDocument, isPanding } = useFireStore("projects");
   const { documents } = useCollection("users");
   const createActionData = useActionData();
-  const [assignedUsers, setAssignedUser] = useState([]);
-  const [projectType, setProjectType] = useState([]);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     setUsers(
@@ -42,6 +44,20 @@ function Create() {
       })
     );
   }, [documents]);
+
+  function validate() {
+    if (desc.length < 10) {
+      alert("DESCRIPTION 10TA SO'ZDAN KAM BOLMASLIGI KERAK");
+      return false;
+    }
+    return true;
+  }
+
+  const isValid = validate;
+
+  if (!isValid) {
+    return;
+  }
 
   const selectUser = (user) => {
     setAssignedUser(user);
@@ -73,7 +89,7 @@ function Create() {
       </h2>
       <Form
         method="post"
-        className="flex flex-col gap-7 max-w-[700px] w-full justify-center p-10 shadow-lg rounded-lg border border-gray-700"
+        className="flex flex-col gap-5 max-w-[700px] w-full justify-center p-6 shadow-lg rounded-lg border border-gray-700"
       >
         <FormInput
           label="Project name"
@@ -81,7 +97,12 @@ function Create() {
           placeholder="Write project name here."
           name="name"
         />
-        <FormTextare label="Project descripton" name="description" />
+        <FormTextare
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+          label="Project descripton"
+          name="description"
+        />
 
         <FormInput label="Due to" type="date" name="dueTo" />
 
@@ -90,10 +111,10 @@ function Create() {
             <span className="label-text">Project Types</span>
           </div>
           <Select>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] bg-slate-400 dark:bg-gray-700">
               <SelectValue placeholder="Select Directions" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-slate-400 dark:bg-gray-700">
               <SelectGroup>
                 <SelectLabel className="flex items-center gap-2">
                   Select Directions <FaArrowDown />
@@ -113,11 +134,15 @@ function Create() {
           </div>
 
           <Select>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] bg-slate-400 dark:bg-gray-700">
               <SelectValue placeholder="Select Directions" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectGroup options="users"></SelectGroup>
+            <SelectContent
+              className="bg-slate-400 dark:bg-gray-700"
+              options={users}
+              onChange={selectUser}
+            >
+              <SelectGroup></SelectGroup>
             </SelectContent>
           </Select>
         </label>
@@ -130,7 +155,9 @@ function Create() {
         )}
         {!isPanding && (
           <div className="flex justify-end">
-            <Button className="btn btn-outline btn-success">Add project</Button>
+            <Button className="btn bg-gray-700 text-gray-200 hover:text-gray-800">
+              Add project
+            </Button>
           </div>
         )}
       </Form>
