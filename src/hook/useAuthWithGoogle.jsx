@@ -3,6 +3,7 @@ import { auth, db } from "../firebase/config";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
+import { Toast } from "@/components/ui/toast";
 
 export function useAuthWithGoogle() {
   const provider = new GoogleAuthProvider();
@@ -21,10 +22,11 @@ export function useAuthWithGoogle() {
           photoURL: user.photoURL,
           id: user.uid,
           online: true,
+          Toast,
         });
       }
     } catch {
-      const errorCode = error.code;
+      // const errorCode = error.code;
       const errorMessage = error.message;
       toast.error(errorMessage);
     }

@@ -39,7 +39,7 @@ function Home() {
                 >
                   {/* <Link to="project/:id"> */}
                   <div className="flex gap-4">
-                    <div className="w-[250px] bg-cyan-900 dark:bg-gray-700 flex items-start justify-center">
+                    <div className="w-[200px] bg-cyan-900 dark:bg-gray-700 flex items-start justify-center">
                       <Card>
                         <CardHeader>
                           <CardTitle>{doc.name}</CardTitle>
