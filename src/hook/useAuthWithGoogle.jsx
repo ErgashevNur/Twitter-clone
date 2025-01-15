@@ -27,7 +27,7 @@ export function useAuthWithGoogle() {
       }
     } catch {
       // const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorMessage = error.message;
       toast.error(errorMessage);
     }
   };
