@@ -3,7 +3,9 @@ function FormInput({ type, label, placeholder, name, error, errorText }) {
   return (
     <label className="form-control w-full mb-2">
       <div className="label">
-        <span className="label-text text-gray-200">{label}</span>
+        <span className="label-text text-black dark:text-gray-200">
+          {label}
+        </span>
       </div>
       <Textarea
         type={type}

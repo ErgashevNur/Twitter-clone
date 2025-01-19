@@ -59,18 +59,21 @@ function Create() {
     return;
   }
 
-  const selectUser = (user) => {
-    setAssignedUser(user);
+  const selectUser = (userId) => {
+    const selectedUser = users.find((user) => user.value.id === userId);
+    setAssignedUser(selectedUser);
   };
+
   const selectProjectType = (type) => {
-    setProjectType(type.value);
+    setProjectType(type);
   };
 
   useEffect(() => {
     if (createActionData) {
       addDocument({
         ...createActionData,
-        assignedUsers: assignedUsers.map((au) => au.value),
+        comments: [],
+        assignedUsers,
         projectType,
         createdAt: serverTimestamp(new Date()),
       }).then(() => {
@@ -79,7 +82,7 @@ function Create() {
     }
   }, [createActionData]);
 
-  console.log();
+  console.log(assignedUsers);
 
   return (
     <div className="flex flex-col items-center px-5">
@@ -110,7 +113,7 @@ function Create() {
           <div className="label">
             <span className="label-text">Project Types</span>
           </div>
-          <Select>
+          <Select onValueChange={selectProjectType}>
             <SelectTrigger className="w-[180px] bg-slate-400 dark:bg-gray-700">
               <SelectValue placeholder="Select Directions" />
             </SelectTrigger>
@@ -123,7 +126,7 @@ function Create() {
                 <SelectItem value="backend">BackEnd</SelectItem>
                 <SelectItem value="fullstack">FullStack</SelectItem>
                 <SelectItem value="graphic-design">Graphic Design</SelectItem>
-                <SelectItem value="Cyber-​ecurity">Cyber-​security</SelectItem>
+                <SelectItem value="cyber-security">Cyber Security</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -133,16 +136,21 @@ function Create() {
             <span className="label-text">Assigned Users</span>
           </div>
 
-          <Select>
+          <Select onValueChange={selectUser}>
             <SelectTrigger className="w-[180px] bg-slate-400 dark:bg-gray-700">
               <SelectValue placeholder="Select Directions" />
             </SelectTrigger>
-            <SelectContent
-              className="bg-slate-400 dark:bg-gray-700"
-              options={users}
-              onChange={selectUser}
-            >
-              <SelectGroup></SelectGroup>
+
+            <SelectContent>
+              {users && users.length > 0 ? (
+                users.map((user, index) => (
+                  <SelectItem key={user.value.id} value={user.value.id}>
+                    {user.label}
+                  </SelectItem>
+                ))
+              ) : (
+                <div>No users available</div>
+              )}
             </SelectContent>
           </Select>
         </label>

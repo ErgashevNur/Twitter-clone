@@ -13,7 +13,7 @@ export function useRegister() {
     try {
       let res = await createUserWithEmailAndPassword(auth, email, password);
       if (!res) {
-        throw new Error("Failed to sign in. Please try");
+        return <h2>Failed to sign in. Please try</h2>;
       }
 
       await updateProfile(auth.currentUser, {

@@ -3,7 +3,6 @@ import { auth, db } from "../firebase/config";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { doc, setDoc } from "firebase/firestore";
-import { Toast } from "@/components/ui/toast";
 
 export function useAuthWithGoogle() {
   const provider = new GoogleAuthProvider();
@@ -27,9 +26,10 @@ export function useAuthWithGoogle() {
           .catch((error) => console.log(error));
       }
     } catch {
-      // const errorCode = error.code;
+      const errorCode = error.code;
       const errorMessage = error.message;
       toast.error(errorMessage);
+      console.log(errorCode);
     }
   };
 

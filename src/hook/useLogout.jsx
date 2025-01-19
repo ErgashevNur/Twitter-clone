@@ -17,7 +17,6 @@ export function useLogout() {
     signOut(auth)
       .then(() => {
         toast.success(`See you again ${(<FaRegFaceSmileBeam />)}`);
-        console.log("sahifadan chiqildi");
       })
       .catch((error) => {
         toast.error(error.message);

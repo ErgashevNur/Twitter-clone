@@ -17,7 +17,7 @@ function Sidebar() {
     <div className="dark:bg-violet-700 bg-cyan-600 min-h-screen w-[350px] text-white flex flex-col">
       <Avatar user={user} />
       <ul className="text-black flex flex-col pr-0 pl-10 mb-auto mt-20">
-        <li className="nav-item hover:bg-cyan-700 dark:hover:bg-violet-800 hover:rounded-s-3xl">
+        <li className="nav-item hover:bg-cyan-700 dark:hover:bg-violet-800 hover:rounded-s-3xl active:border active:border-white">
           <NavLink
             to="/"
             className="flex items-center px-3 py-2 rounded-l-3xl gap-2"
@@ -27,7 +27,7 @@ function Sidebar() {
           </NavLink>
         </li>
 
-        <li className="nav-item hover:bg-cyan-700 dark:hover:bg-violet-800 hover:rounded-s-3xl">
+        <li className="nav-item hover:bg-cyan-700 dark:hover:bg-violet-800 hover:rounded-s-3xl active:border active:border-white">
           <NavLink
             to="/create"
             className="flex items-center px-3 py-2 rounded-l-3xl gap-2"
@@ -37,7 +37,7 @@ function Sidebar() {
           </NavLink>
         </li>
 
-        <li className="nav-item hover:bg-cyan-700 dark:hover:bg-violet-800 hover:rounded-s-3xl">
+        <li className="nav-item hover:bg-cyan-700 dark:hover:bg-violet-800 hover:rounded-s-3xl active:border active:border-white">
           <NavLink
             to="/profile"
             className="flex items-center px-3 py-2 rounded-l-3xl gap-2"
