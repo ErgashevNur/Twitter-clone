@@ -9,7 +9,9 @@ import { useFireStore } from "../hook/useFireStore";
 
 function Project() {
   const location = useLocation();
-  const proj = location.state;
+  const proj = location.state || {};
+  const { documents: projects } = useCollection("projects");
+  let foundProject = null;
 
   const [content, setContent] = useState("");
   const { documents: user } = useCollection("users");
@@ -28,20 +30,38 @@ function Project() {
       },
     };
     setContent("");
-    await updateDocument(proj.id, {
-      comments: [...(proj.comments || []), comment],
+    await updateDocument(foundProject.id, {
+      comments: [...(foundProject.comments || []), comment],
     });
   };
 
+  const prjct = location.state || {};
+  if (!proj || !proj.id) {
+    foundProject = projects?.find((project) => project.id === prjct) ?? null;
+  }
+
+  console.log(content);
+
   return (
     <div className="grid grid-cols-2 gap-5">
-      <div className="card bg-gray-200 text-slate-950 w-[400px] h-[350px]">
+      <div className="card bg-gray-200 text-slate-950 w-[400px] h-[380px] shadow-custom dark:shadow-mode">
         <div className="card-body">
-          <h2 className="card-title text-2xl">{proj.name}</h2>
-          <h3 className="text-xl italic font-extralight">{proj.projectType}</h3>
+          <h2 className="card-title text-2xl font-bold">
+            {foundProject?.name}
+          </h2>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg italic font-extralight">
+              {foundProject?.projectType}
+            </h3>
+
+            <h4>
+              {new Date(foundProject?.dueTo.toDate()).toLocaleDateString()}
+            </h4>
+          </div>
+
           <hr className="bg-black text-black h-[2px]" />
           <p className="w-full p-2 text-black rounded-md mt-2 max-h-[125px] overflow-x-auto">
-            {proj.description}
+            {foundProject?.description}
           </p>
           <div className="card-actions flex justify-center gap-10">
             <div className="flex">
@@ -61,17 +81,23 @@ function Project() {
               </Button>
             </div>
           </div>
+
+          <hr className="bg-black text-black h-[2px] mt-2" />
+
+          <div className="text-right my-1">
+            <p>{new Date(foundProject?.createdAt.toDate()).toLocaleString()}</p>
+          </div>
         </div>
       </div>
 
       <div className="max-h-[400px] overflow-x-auto">
         <h2 className="text-2xl">Chat for comments:</h2>
-        {proj.comments?.length === 0 ? (
+        {foundProject?.comments?.length === 0 ? (
           <h4 className="text-center my-10 italic opacity-50">
             No comments yet!
           </h4>
         ) : (
-          proj.comments.map((comment) => (
+          foundProject?.comments.map((comment) => (
             <div
               key={comment.id}
               className={`chat ${
@@ -99,11 +125,11 @@ function Project() {
             <textarea
               onChange={(e) => setContent(e.target.value)}
               value={content}
-              className="textarea textarea-bordered text-black dark:bg-white h-24"
+              className="textarea textarea-bordered dark:text-black text-base bg-white h-24"
               placeholder="Type here"
             ></textarea>
           </label>
-          <button className="btn btn-neutral mt-4 btn-block">
+          <button className="btn btn-neutral dark: mt-4 btn-block">
             Send <IoSend />
           </button>
         </form>

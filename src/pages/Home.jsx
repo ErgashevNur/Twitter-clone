@@ -48,10 +48,9 @@ function Home() {
               <li key={doc.id} className="w-72 h-70 rounded-t-lg rounded-lg ">
                 <button
                   onClick={() => {
-                    navigate(`project/`, { state: doc });
+                    navigate(`/project/${doc.id}`, { state: doc.id });
                   }}
                 >
-                  {/* <Link to="project/:id"> */}
                   <div className="flex gap-4">
                     <div className="w-full h-full bg-cyan-900 dark:bg-gray-700 flex items-start justify-center">
                       <Card>
@@ -72,18 +71,19 @@ function Home() {
 
                         <div className="flex p-2 items-center">
                           <img
-                            className="rounded-full w-20"
+                            className="rounded-full w-16"
                             src={doc.assignedUsers.value.photoURL}
                             alt=""
                           />
 
-                          <h4 className="">{doc.assignedUsers.label}</h4>
+                          <h4 className="ml-5 text-lg font-bold">
+                            {doc.assignedUsers.label}
+                          </h4>
                         </div>
                       </Card>
                     </div>
                   </div>
                 </button>
-                {/* </Link> */}
               </li>
             );
           })}

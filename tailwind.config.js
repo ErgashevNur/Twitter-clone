@@ -6,6 +6,10 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        custom: "22px 20px 3px 1px rgba(38,38,38,0.75);",
+        mode: "22px 20px 3px 1px rgba(130,130,130,0.75)", // Maxsus box-shadow
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
